@@ -41,6 +41,7 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   provider: ^6.0.5
   another_flushbar: ^1.12.30
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
