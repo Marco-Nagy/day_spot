@@ -1,11 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:employees_attendance/Authentication/presentation/screens/login_screen.dart';
 import 'package:employees_attendance/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AuthenticationProvider extends ChangeNotifier {
+import '../screens/login_screen.dart';
+
+class AuthProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final SupabaseClient _supabaseClient = Supabase.instance.client;

@@ -1,9 +1,9 @@
-import 'package:employees_attendance/Authentication/presentation/provider/AuthenticationProvider.dart';
-import 'package:employees_attendance/Authentication/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'Features/Authentication/presentation/provider/AuthenticationProvider.dart';
+import 'Features/Authentication/presentation/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +13,7 @@ void main() async {
   String supaBaseUrl = dotenv.env['SUPABASE_URL'] ?? '';
   String supaBaseKey = dotenv.env['SUPABASE_KEY'] ?? '';
   await Supabase.initialize(url: supaBaseUrl, anonKey: supaBaseKey);
-  runApp(  const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider<AuthenticationProvider>(
-          create: (_) => AuthenticationProvider()),
-    ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Employees Attendance',

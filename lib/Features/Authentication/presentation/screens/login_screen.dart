@@ -1,24 +1,26 @@
-import 'package:employees_attendance/Authentication/presentation/provider/AuthenticationProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+import '../provider/AuthenticationProvider.dart';
+import 'register_screen.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Consumer(
-        builder: (context, AuthenticationProvider ap, child) {
-          return             SingleChildScrollView(
+        builder: (context, AuthProvider ap, child) {
+          return SingleChildScrollView(
             child: Column(
               children: [
                 Container(
@@ -89,21 +91,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: CircularProgressIndicator(),
                               )
                             : ElevatedButton(
-                                onPressed: () async {
-                            await      ap.registerEmployee(ap.emailController.text.trim(),
-                                      ap.passwordController.text.trim(), context);
+                                onPressed: () {
+                                  ap.loginEmployee(
+                                      ap.emailController.text.trim(),
+                                      ap.passwordController.text.trim(),
+                                      context);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.redAccent,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30))),
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
                                 child: const Text(
-                                  "Register",
+                                  "LOGIN",
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
                       ),
-
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterScreen()));
+                          },
+                          child: const Text(
+                              "Are you a new Employee ? Register here"))
                     ],
                   ),
                 ),
