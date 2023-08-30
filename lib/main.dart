@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Features/Authentication/presentation/provider/AuthenticationProvider.dart';
 import 'Features/Authentication/presentation/screens/login_screen.dart';
+import 'Features/Home/presentation/providers/home_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+        ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

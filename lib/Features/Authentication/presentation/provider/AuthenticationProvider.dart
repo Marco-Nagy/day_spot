@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:employees_attendance/Features/Home/presentation/screens/home_screen.dart';
+import 'package:employees_attendance/core/data_base_services.dart';
 import 'package:employees_attendance/core/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -10,6 +12,7 @@ class AuthProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final SupabaseClient _supabaseClient = Supabase.instance.client;
+  final DataBaseServices _dataBaseServices = DataBaseServices();
   bool isVisible = false;
   bool _isLoading = false;
 
@@ -34,13 +37,18 @@ class AuthProvider extends ChangeNotifier {
       }
       final AuthResponse response =
           await _supabaseClient.auth.signUp(password: password, email: email);
-      Utils.showSnackBar("Success ! ${emailController.text} you can now login", context,
-          color: Colors.green);
-      Future.delayed(const Duration(seconds: 2)).then((value) =>Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen(),)));
-      setLoading = false;
+   if(response !=null){
+     await _dataBaseServices.insertNewUser(email, response.user!.id);
+     Utils.showSnackBar("Successfully Registered  ! ${emailController.text} you can now login", context,
+         color: Colors.green);
+     setLoading = false;
+
+     await  Future.delayed(const Duration(seconds: 2)).then((value) =>Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen(),)));
+   }
     } catch (e) {
       setLoading = false;
       Utils.showSnackBar(e.toString(), context, color: Colors.red);
+      print(e.toString());
     }
   }
 
@@ -54,6 +62,11 @@ class AuthProvider extends ChangeNotifier {
       final AuthResponse response = await _supabaseClient.auth
           .signInWithPassword(password: password, email: email);
       setLoading = false;
+      if(response!=null){
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen(),));
+      }
     } catch (e) {
       Utils.showSnackBar(e.toString(), context, color: Colors.red);
       setLoading = false;

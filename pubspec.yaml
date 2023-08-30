@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.0.5
   another_flushbar: ^1.12.30
   dartz: ^0.10.1
+  slide_to_act_reborn: ^3.0.0
 
 dev_dependencies:
   flutter_test:
