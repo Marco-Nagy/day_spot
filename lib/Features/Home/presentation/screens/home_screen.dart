@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:employees_attendance/Features/Home/presentation/providers/home_provider.dart';
 import 'package:employees_attendance/Features/Home/presentation/screens/Navigations/attendance_screen.dart';
 import 'package:employees_attendance/Features/Home/presentation/screens/Navigations/calender_screen.dart';
