@@ -91,9 +91,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           width: 80,
                           child: Divider(),
                         ),
-                        Text(
-                          hp.attendanceModel.checkIn.isNotEmpty?hp.attendanceModel.checkIn:'--/--',
-                          style: GoogleFonts.aBeeZee(fontSize: 22),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            hp.attendanceModel.checkIn.isNotEmpty?DateFormat('hh:mm a').format(
+                                DateFormat('hh:mm:ss a').parse(
+                                    hp.attendanceModel.checkIn)):'--/--',
+                            style: GoogleFonts.aBeeZee(fontSize: 25),
+                          ),
                         ),
                       ],
                     )),
@@ -111,9 +116,14 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           width: 80,
                           child: Divider(),
                         ),
-                        Text(
-                          hp.attendanceModel.checkOut.isNotEmpty?hp.attendanceModel.checkOut:'--/--',
-                          style: GoogleFonts.aBeeZee(fontSize: 25),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            hp.attendanceModel.checkOut.isNotEmpty?DateFormat('hh:mm a').format(
+                                DateFormat('hh:mm:ss a').parse(
+                                    hp.attendanceModel.checkOut)):'--/--',
+                            style: GoogleFonts.aBeeZee(fontSize: 25),
+                          ),
                         ),
                       ],
                     )),
