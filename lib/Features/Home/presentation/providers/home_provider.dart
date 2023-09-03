@@ -16,9 +16,20 @@ class HomeProvider extends ChangeNotifier {
       UserModel(name: '', employeeId: '', id: '', department: '', email: '');
   AttendanceModel attendanceModel = AttendanceModel(
       date: '', createdAt: '', checkIn: '', id: '', checkOut: '');
+  List attendanceHistoryList = [];
   String todayDate = DateFormat('dd MMM yyyy').format(DateTime.now());
   bool isVisible = false;
   bool _isLoading = false;
+
+  set attendanceHistoryMonth(String value) {
+    _attendanceHistoryMonth = value;
+    notifyListeners();
+  }
+
+  String _attendanceHistoryMonth =
+      DateFormat('MMM yyyy').format(DateTime.now());
+
+  String get attendanceHistoryMonth => _attendanceHistoryMonth;
 
   get isLoading => _isLoading;
 
@@ -68,9 +79,32 @@ class HomeProvider extends ChangeNotifier {
             _supabaseClient.auth.currentUser!.id,
           )
           .eq('date', todayDate);
-    }else{
-      Utils.showSnackBar('You Have Checked Out Today !', context,color: Colors.blue);
+    } else {
+      Utils.showSnackBar('You Have Checked Out Today !', context,
+          color: Colors.blue);
     }
     getTodayAttendance();
+  }
+
+  Future<List<AttendanceModel>> getAttendanceHistory() async {
+    _isLoading = true;
+    attendanceHistoryList = await _supabaseClient
+        .from(Constants.attendanceTable)
+        .select()
+        .eq('employeeId', _supabaseClient.auth.currentUser!.id)
+        .textSearch('date', "'$attendanceHistoryMonth'", config: 'english')
+        .order('created_at', ascending: false);
+    print('attendance history ${attendanceHistoryList
+        .map((attendance) => AttendanceModel.fromJson(attendance))
+        .toList()
+        .toString()}');
+
+    if (attendanceHistoryList != null) {
+      _isLoading = false;
+    }
+    notifyListeners();
+    return attendanceHistoryList
+        .map((attendance) => AttendanceModel.fromJson(attendance))
+        .toList();
   }
 }

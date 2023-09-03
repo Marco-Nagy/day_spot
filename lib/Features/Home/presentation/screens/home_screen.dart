@@ -31,10 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
             body: Center(
                 child: IndexedStack(
               index: hp.navigationIndex,
-              children:  [
-                const CalenderScreen(),
+              children:  const [
+                CalenderScreen(),
                 AttendanceScreen(),
-                const ProfileScreen(),
+                ProfileScreen(),
               ],
             )),
             bottomNavigationBar: Container(

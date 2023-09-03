@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:slide_to_act_reborn/slide_to_act_reborn.dart';
 
 class AttendanceScreen extends StatefulWidget {
-  AttendanceScreen({Key? key}) : super(key: key);
+  const AttendanceScreen({Key? key}) : super(key: key);
 
   @override
   State<AttendanceScreen> createState() => _AttendanceScreenState();

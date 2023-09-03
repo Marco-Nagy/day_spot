@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, AuthProvider ap, child) {
+        // ap.signOut();
         return ap.currentAuth == null
             ? const LoginScreen()
             : const HomeScreen();

@@ -44,6 +44,9 @@ dependencies:
   dartz: ^0.10.1
   slide_to_act_reborn: ^3.0.0
   intl: ^0.18.1
+  simple_month_year_picker: ^1.0.5
+  location: ^5.0.3
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

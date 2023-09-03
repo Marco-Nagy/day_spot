@@ -26,15 +26,15 @@ class AttendanceModel {
   factory AttendanceModel.fromJson(Map<dynamic, dynamic> json) =>
       AttendanceModel(
         date: json["date"] != null ? json["date"].toString() : '',
-        createdAt: json["createdAt"]!= null ? json["createdAt"].toString() : '',
+        createdAt: json["created_at"]!= null ? json["created_at"].toString() : '',
         checkIn: json["checkIn"]!= null ? json["checkIn"].toString() : '',
         id: json["id"]!= null ? json["id"].toString() : '',
         checkOut: json["checkOut"]!= null ? json["checkOut"].toString() : '',
       );
 
-  Map<dynamic, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "date": date,
-        "createdAt": createdAt,
+        "created_at": createdAt,
         "checkIn": checkIn,
         "id": id,
         "checkOut": checkOut,
