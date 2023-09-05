@@ -61,7 +61,12 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future markAttendance(BuildContext context) async {
-    if (attendanceModel.checkIn == null || attendanceModel.checkIn.isEmpty) {
+    if (userModel.employeeId != dataBaseServices.uniqueCode) {
+      Utils.showSnackBar('بلاش الحركات دي .. متعملش كدة تانى ', context,
+          color: Colors.red);
+    } else if ((attendanceModel.checkIn == null ||
+            attendanceModel.checkIn.isEmpty) &&
+        userModel.employeeId == dataBaseServices.uniqueCode) {
       await _supabaseClient.from(Constants.attendanceTable).insert({
         'employeeId': _supabaseClient.auth.currentUser!.id,
         'date': todayDate,
@@ -94,10 +99,8 @@ class HomeProvider extends ChangeNotifier {
         .eq('employeeId', _supabaseClient.auth.currentUser!.id)
         .textSearch('date', "'$attendanceHistoryMonth'", config: 'english')
         .order('created_at', ascending: false);
-    print('attendance history ${attendanceHistoryList
-        .map((attendance) => AttendanceModel.fromJson(attendance))
-        .toList()
-        .toString()}');
+    print(
+        'attendance history ${attendanceHistoryList.map((attendance) => AttendanceModel.fromJson(attendance)).toList().toString()}');
 
     if (attendanceHistoryList != null) {
       _isLoading = false;

@@ -50,6 +50,7 @@ class AuthProvider extends ChangeNotifier {
       Utils.showSnackBar(e.toString(), context, color: Colors.red);
       print(e.toString());
     }
+    notifyListeners();
   }
 
   Future loginEmployee(
@@ -62,6 +63,7 @@ class AuthProvider extends ChangeNotifier {
       final AuthResponse response = await _supabaseClient.auth
           .signInWithPassword(password: password, email: email);
       setLoading = false;
+
       if(response!=null){
         Navigator.push(
             context,

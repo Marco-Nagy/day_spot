@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ap.loginEmployee(
                                       ap.emailController.text.trim(),
                                       ap.passwordController.text.trim(),
+
                                       context);
                                 },
                                 style: ElevatedButton.styleFrom(
